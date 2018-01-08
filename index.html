@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maxinum-scale=1.0, minimal-ui">
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>音乐播放器</title>
+    </head>
+    <body>
+    	<audio id="mAudio" autoplay="autoplay" preload="preload" controls="controls">
+        </audio>
+        <button id="playBTN">Play</button>
+        <button id="pauseBTN">Pause</button>
+    </body>
+    <script src="./src/js/plugins/EventUtil.js"></script>
+    <script src="./src/js/audio.js"></script>
+    <script type="text/javascript">        
+        window.onload = function () {
+            var mAudio = document.getElementById('mAudio');
+            var setOptions = {
+                el: mAudio,
+                url: 'http://cdn.cmread.com/file/660251290/5527c1c8a493c38405538b4ca916e10586209ab92cfe/32.mp3'
+            };
+            setOptions.canplay = function () {
+                console.log('--canplay--');
+            };
+            setOptions.playing = function () {
+                console.log('---playing---')
+            }
+            setOptions.progress = function () {
+                console.log('---progress---')
+            }
+            var hAudio = new HAudio(setOptions);  
+            var playBTN = document.getElementById('playBTN');
+            var pauseBTN = document.getElementById('pauseBTN');
+            EventUtil.addEvent(pauseBTN, 'click', function (event) {
+                hAudio.pause();
+            })
+            hAudio.play();
+        }
+    </script>
+</html>
